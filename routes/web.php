@@ -13,11 +13,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
+
+    Route::get('/resume', [ResumeController::class, 'index'])->name('resume.index');
+    Route::post('/resume/generate', [ResumeController::class, 'generateResume'])->name('resume.generate');
+    Route::get('/resume/{resume}/download', [ResumeController::class, 'download'])->name('resume.download');
+
+    Route::get('/jobs', [JobController::class, 'index'])->name('jobs.index');
+    Route::get('/jobs/match', [JobController::class, 'matchJobs'])->name('jobs.match');
 });
-
-Route::post('/resume/generate', [ResumeController::class, 'generateResume']);
-Route::get('/jobs/match', [JobController::class, 'matchJobs']);
-
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
